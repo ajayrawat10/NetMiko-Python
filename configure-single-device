@@ -1,7 +1,7 @@
 
 from netmiko import ConnectHandler
 from getpass import getpass 
-
+# password not visible on single screen
 password = getpass()
 
 RTR_10 = {
