@@ -5,10 +5,11 @@ from getpass import getpass
 password = getpass()
 
 RTR_10 = {
-    'password': password,
-    'device_type': 'cisco_ios',
-    'ip':   '10.10.10.10',
-    'username': 'admin',
+    "ip": "131.226.217.143",
+    "username": "developer",
+    "password": "C1sco12345",
+    "device_type": "cisco_xr",
+    "port": 22
 }
 
 net_connect = ConnectHandler(**RTR_10)
@@ -20,3 +21,29 @@ output = net_connect.send_config_set(config_commands)
 print(output)
 output = net_connect.send_command('show ip int brief')
 print(output)
+
+============
+
+
+from netmiko import ConnectHandler
+from getpass import getpass
+password = getpass()
+device_paramters = {
+    "ip": "131.226.217.143",
+    "username": "developer",
+    "password": password,
+    "device_type": "cisco_xr",
+    "port": 22
+}
+net_connect = ConnectHandler(**device_paramters)
+
+output = net_connect.send_command("sh ip int bri")
+output1 = net_connect.send_config_set("int lo 10", "ip address 10.1.1.1 255.255.255.255")
+print(output)
+print(output1)
+
+cfg_list = ["ip access-list extended Test", "permit ip any host 1.1.1.1"]
+cfg_output = net_connect.send_config_set(cfg_list)
+print(cfg_output)
+#Save the config
+net_connect.save_config()
