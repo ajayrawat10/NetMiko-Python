@@ -1,0 +1,28 @@
+
+
+from netmiko import ConnectHandler
+
+
+device_paramters = {
+    "ip": "131.226.217.143",
+    "username": "developer",
+    "password": "C1sco12345",
+    "device_type": "cisco_xr",
+    "port": 22
+}
+# for SSH connection initiation
+net_connect = ConnectHandler(**device_paramters)
+# send one command
+output = net_connect.send_command("sh ip int bri")
+# send multiple commands
+output1 = net_connect.send_config_set("int lo 10", "ip address 10.1.1.1 255.255.255.255")
+# sending multiple list commands
+cfg_list = ["ip access-list extended Test", "permit ip any host 1.1.1.1"]
+cfg_output = net_connect.send_config_set(cfg_list)
+
+
+print(cfg_output)
+
+print(output)
+print(output1)
+
