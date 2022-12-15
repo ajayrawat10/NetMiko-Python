@@ -15,9 +15,12 @@ with open ("device_list.txt") as IP_LIST:
         print(f" Connecting to the device {IP} ")
         
         net_connect = ConnectHandler(**RTR)
+        # first Method
         with open('config_file_1.txt') as file1:
             config = file1.read()
-            print(config)
+                        
         output = net_connect.send_config_set(config)
-        print(output)
+        ##  or Second Method
+        output1 = net_connect.send_config_from_file('config_file_1.txt)
+        print(output1)
 
